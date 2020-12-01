@@ -154,8 +154,12 @@ export const NextAppointment = styled.div`
 export const Section = styled.div`
   margin-top: 48px;
 
-  > strong {
+  p {
     color: #999591;
+  }
+
+  > strong {
+    color: #fff;
     font-size: 20px;
     line-height: 26px;
     border-bottom: 1px solid #3e3b47;
