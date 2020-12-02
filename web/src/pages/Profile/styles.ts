@@ -62,7 +62,7 @@ export const AnimatedContent = styled.div`
   animation: ${appearFromRight} 1s;
 
   form {
-    margin: 135px 0;
+    margin: 55px 0;
     width: 340px;
     text-align: center;
     display: flex;
@@ -97,9 +97,10 @@ export const AvatarInput = styled.div`
     width: 186px;
     height: 186px;
     border-radius: 50%;
+    background-size: cover;
   }
 
-  button {
+  label {
     position: absolute;
     width: 48px;
     height: 48px;
@@ -112,6 +113,11 @@ export const AvatarInput = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
+
+    input {
+      display: none;
+    }
 
     > svg {
       width: 20px;

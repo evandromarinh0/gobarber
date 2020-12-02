@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useRef } from 'react';
+import React, { ChangeEvent, useCallback, useContext, useRef } from 'react';
 import { FiArrowLeft, FiCamera, FiLock, FiMail, FiUser } from 'react-icons/fi';
 import { FormHandles } from '@unform/core';
 import { Link, useHistory } from 'react-router-dom';
@@ -23,7 +23,7 @@ interface SignUpFormData {
 
 const SignUp: React.FC = () => {
   const { addToast } = useContext(ToastContext);
-  const { user } = useContext(AuthContext);
+  const { user, updateAvatar } = useContext(AuthContext);
 
   const formRef = useRef<FormHandles>(null);
   const history = useHistory();
@@ -66,6 +66,24 @@ const SignUp: React.FC = () => {
       });
     }
   }, [addToast, history]);
+
+  const handleAvatarChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    if(e.target.files) {
+      const data = new FormData();
+
+      data.append('avatar', e.target.files[0]);
+
+      api.patch('/users/avatar', data).then(response => {
+        updateAvatar(response.data);
+
+        addToast({
+          type: 'success',
+          title: 'Avatar',
+          description: 'Seu avatar foi alterado com sucesso'
+        })
+      });
+    }
+  }, [addToast, updateAvatar])
   
   return(
     <Container>
@@ -81,9 +99,10 @@ const SignUp: React.FC = () => {
           <Form ref={formRef} onSubmit={handleSubmit} initialData={{ name: user.name, email: user.email }} >
             <AvatarInput>
               <img src={user.avatar_url} alt={user.name} />
-              <button type="button">
+              <label htmlFor="avatar">
                 <FiCamera />
-              </button>
+                <input type="file" id="avatar" onChange={handleAvatarChange} />
+              </label>
             </AvatarInput>
             <h1>Meu perfil</h1>
 
