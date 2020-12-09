@@ -1,5 +1,7 @@
+import React, { useRef } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import { FormHandles } from '@unform/core';
+import { Form } from '@unform/mobile';
 import { Image, KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 
@@ -16,6 +18,7 @@ import { Container,
 
 const SignUp: React.FC = () => {
   const navigation = useNavigation();
+  const formRef = useRef<FormHandles>(null);
 
   return(
     <>
@@ -34,14 +37,15 @@ const SignUp: React.FC = () => {
             <Title>Crie sua conta</Title>
           </View>
 
-          <Input name="name" icon="user" placeholder="Nome" />
-          <Input name="name" icon="mail" placeholder="E-mail" />  
-          <Input name="password" icon="lock" placeholder="Senha" />
-
-          <Button>Entrar</Button>
+          <Form ref={formRef} onSubmit={(data) => { console.log(data)}}>
+            <Input name="name" icon="user" placeholder="Nome" />
+            <Input name="name" icon="mail" placeholder="E-mail" />  
+            <Input name="password" icon="lock" placeholder="Senha" />
+            <Button onPress={() => formRef.current?.submitForm()}>Entrar</Button>
+          </Form>
         </Container>
 
-        <BackToLogin onPress={() => {navigation.navigate('SignIn')}}>
+        <BackToLogin onPress={() => {navigation.goBack()}}>
           <Icon name="arrow-left" size={20} color="#fff" />
           <BackToLoginText>
             Voltar a página inicial
