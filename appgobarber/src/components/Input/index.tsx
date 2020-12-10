@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { TextInputProps } from 'react-native';
 import { useField } from '@unform/core';
 import Icon from 'react-native-vector-icons/Feather'
@@ -20,6 +20,19 @@ const Input: React.FC<InputProp> = ({ children, name, icon, ...rest }) => {
   const inputValueRef = useRef<InputValueReference>({ value: defaultValue });
   const inputElementRef = useRef<any>(null);
 
+  const [isFocused, setIsFocused] = useState(false);
+  const [isFilled, setIsFilled] = useState(false);
+
+  const handleInputFocus = useCallback(() => {
+    setIsFocused(true);
+  }, [])
+  
+  const handleInputBlur = useCallback(() => {
+    setIsFocused(false);
+
+    setIsFilled(!!inputValueRef.current.value)
+  }, [])
+
   useEffect(() => {
     registerField({
       name: fieldName,
@@ -37,13 +50,15 @@ const Input: React.FC<InputProp> = ({ children, name, icon, ...rest }) => {
   }, [fieldName, registerField]);
 
   return(
-    <Container >
-      <Icon name={icon} size={20} color='#666360' />
+    <Container isFocused={isFocused}>
+      <Icon name={icon} size={20} color={isFocused || isFilled ? '#ff9000' : '#666360'} />
       <TextInput 
         ref={inputElementRef}
         placeholderTextColor="#666360"
         keyboardAppearance="dark"
         defaultValue={defaultValue}
+        onFocus={handleInputFocus}
+        onBlur={handleInputBlur}
         onChangeText={(value) => {
           inputValueRef.current.value = value;
         }}
