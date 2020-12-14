@@ -3,15 +3,18 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { View, StatusBar } from 'react-native';
 
-import Routes from '../src/routes';
+import { AuthProvider } from './hooks/AuthContext';
 
+import Routes from '../src/routes';
 
 const App: React.FC = () => {
   return(
     <NavigationContainer>
-      <View style={{ backgroundColor: '#312e38', flex: 1 }}>
-        <Routes />
-      </View>
+      <AuthProvider>
+        <View style={{ backgroundColor: '#312e38', flex: 1 }}>
+          <Routes />
+        </View>
+      </AuthProvider>
       <StatusBar barStyle="light-content" backgroundColor="#312e38" />
     </NavigationContainer>
   );
