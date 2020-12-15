@@ -5,7 +5,7 @@ import { View, StatusBar } from 'react-native';
 
 import { AuthProvider } from './hooks/AuthContext';
 
-import Routes from '../src/routes';
+import Routes from './routes/auth.routes';
 
 const App: React.FC = () => {
   return(
