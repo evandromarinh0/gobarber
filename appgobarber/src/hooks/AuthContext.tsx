@@ -39,6 +39,8 @@ export const AuthProvider: React.FC = ({ children }) => {
       const user = await AsyncStorage.getItem('@GoBarber:user');
 
       if (token && user) {
+        api.defaults.headers.authorization = `Bearer ${token}`;
+
         setData({ token, user: JSON.parse(user) })
       }
       setLoading(false);
