@@ -11,7 +11,6 @@ import {
   OkButton,
   OkButtonText,
 } from './styles';
-
 interface RouteParams {
   date: number;
 }

@@ -32,17 +32,14 @@ import {
   CreateAppointmentButtonText
 } from './styles';
 import { format } from 'date-fns';
-
 interface RouteParams {
   providerId: string;
 }
-
 export interface Provider {
   id: string;
   name: string;
   avatar_url: string;
 }
-
 interface AvailabilityItem {
   hour: number;
   available: boolean;

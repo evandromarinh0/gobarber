@@ -15,7 +15,7 @@ const App: React.FC = () => {
           <Routes />
         </View>
       </AuthProvider>
-      <StatusBar barStyle="light-content" backgroundColor="#312e38" />
+      <StatusBar translucent barStyle="light-content" backgroundColor="#312e38" />
     </NavigationContainer>
   );
 }

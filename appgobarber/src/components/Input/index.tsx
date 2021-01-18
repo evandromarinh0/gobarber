@@ -8,13 +8,14 @@ import { Container, TextInput } from './styles';
 interface InputProp extends TextInputProps {
   name: string;
   icon: string;
+  containerStyle?: object;
 }
 
 interface InputValueReference {
   value: string;
 }
 
-const Input: React.FC<InputProp> = ({ children, name, icon, ...rest }) => {
+const Input: React.FC<InputProp> = ({ children, name, containerStyle = {}, icon, ...rest }) => {
 
   const { fieldName, registerField, error, defaultValue = '' } = useField(name);
   const inputValueRef = useRef<InputValueReference>({ value: defaultValue });
@@ -50,7 +51,7 @@ const Input: React.FC<InputProp> = ({ children, name, icon, ...rest }) => {
   }, [fieldName, registerField]);
 
   return(
-    <Container isFocused={isFocused} hasError={!!error}>
+    <Container style={containerStyle} isFocused={isFocused} hasError={!!error}>
       <Icon name={icon} size={20} color={isFocused || isFilled ? '#ff9000' : '#666360'} />
       <TextInput 
         ref={inputElementRef}
